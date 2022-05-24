@@ -6,10 +6,16 @@ type Range = {
   [i: number]: number | undefined;
 };
 
+/*
+ * Overloads for the method
+ */
 export function range(end: number): Range;
 export function range(start: number, end: number): Range;
 export function range(start: number, end: number, step: number): Range;
 
+/**
+ * Range function implementation
+ */
 export function range(...args: number[]): Range {
   // Parse out start/end/step to handle overload
   const [start, end, step] = (() => {
@@ -22,6 +28,7 @@ export function range(...args: number[]): Range {
     return args.slice(0, 3);
   })();
 
+  // Create a "target" object (that we'll use as proxy target)
   const target = {
     start,
     end,
