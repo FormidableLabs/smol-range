@@ -3,6 +3,7 @@ type Range = {
   end: number;
   step: number;
   [Symbol.iterator](): Generator<number, void, unknown>;
+  [i: number]: number | undefined;
 };
 
 export function range(end: number): Range;
@@ -66,11 +67,36 @@ export function range(...args: number[]): Range {
       return isCloseEnough(y, start + Math.round(x) * step);
     },
 
-    // get({ start, step, end }, _x) {
-    //   console.log("AHHH!", _x);
-    // },
+    /**
+     * "get" trap to handle property lookups, like...
+     *    `range(2, 5)[1]`
+     */
+    get(...args) {
+      const [{ start, step, end }, _x] = args;
+
+      if (typeof _x === "string" && IntegerRegex.test(_x)) {
+        const x = Number(_x);
+
+        // Positive index
+        if (x >= 0) {
+          const y = start + x * step;
+          return y >= end ? undefined : y;
+        }
+        // Negative index
+        else {
+          if (end === Infinity) return undefined;
+
+          // TODO: Handle this.
+          return undefined;
+        }
+      } else {
+        return Reflect.get(...args);
+      }
+    },
   });
 }
 
 const isCloseEnough = (a: number, b: number) =>
   Math.abs(a - b) < Number.EPSILON;
+
+const IntegerRegex = /^-?\d+$/;

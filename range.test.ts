@@ -86,4 +86,15 @@ describe("range", () => {
     expect(3.7 in r).toBe(true);
     expect(494.2 in r).toBe(true);
   });
+
+  test("handles positive value lookup for single-arg", () => {
+    expect(range(5)[1]).toEqual(1);
+    expect(range(5)[2]).toEqual(2);
+    expect(range(5)[5]).toBeUndefined();
+    expect(range(5)[7]).toBeUndefined();
+  });
+
+  test("handles negative value lookup for single-arg", () => {
+    expect(range(5)[-1]).toEqual(4);
+  });
 });
