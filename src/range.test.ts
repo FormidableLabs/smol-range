@@ -96,10 +96,51 @@ describe("range", () => {
     expect(494.2 in r).toBe(true);
   });
 
-  test("handles positive value lookup for single-arg", () => {
+  test("handles positive-value lookup for single-arg", () => {
     expect(range(5)[1]).toEqual(1);
     expect(range(5)[2]).toEqual(2);
     expect(range(5)[5]).toBeUndefined();
     expect(range(5)[7]).toBeUndefined();
+  });
+
+  test("handles negative-value lookup for single-arg", () => {
+    expect(range(5)[-1]).toEqual(4);
+    expect(range(5)[-2]).toEqual(3);
+    expect(range(5)[-6]).toBeUndefined();
+
+    expect(range(Infinity)[-1]).toBeUndefined();
+    expect(range(Infinity)[-2]).toBeUndefined();
+  });
+
+  test("handles positive-value lookup for double-arg", () => {
+    expect(range(3, 8)[2]).toEqual(5);
+    expect(range(-6, 4)[7]).toEqual(1);
+  });
+
+  test("handles negative-value lookup for double-arg", () => {
+    expect(range(3, 8)[-1]).toEqual(7);
+    expect(range(3, 8)[-3]).toEqual(5);
+    expect(range(-6, 4)[-7]).toEqual(-3);
+
+    expect(range(4, Infinity)[-1]).toBeUndefined();
+  });
+
+  test("handles positive-value lookup for triple-arg", () => {
+    expect(range(1, 9, 2)[2]).toEqual(5);
+    expect(range(1, 9, 2)[3]).toEqual(7);
+    expect(range(1, 9, 2)[4]).toBeUndefined();
+
+    expect(range(-20, -4, 3)[0]).toEqual(-20);
+    expect(range(-20, -4, 3)[5]).toEqual(-5);
+    expect(range(-20, -4, 3)[6]).toBeUndefined();
+  });
+
+  test("handles negative-value lookup for triple-arg", () => {
+    expect(range(1, 9, 2)[-1]).toEqual(7);
+    expect(range(1, 9, 2)[-3]).toEqual(3);
+    expect(range(1, 9, 2)[-4]).toEqual(1);
+    expect(range(1, 9, 2)[-5]).toBeUndefined();
+
+    expect(range(1, Infinity, 5)[-1]).toBeUndefined();
   });
 });

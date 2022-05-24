@@ -81,3 +81,13 @@ myRange[1]; // -> 7
 myRange[272]; // -> 820
 myRange[1369]; // -> 4111
 ```
+
+The lookup also supports negative values (when there's a finite end to the range):
+
+```ts
+const myRange = range(1, 9, 2); // -> 1, 3, 5, 7
+
+myRange[-1]; // -> 7
+myRange[-4]; // -> 1
+myRange[-5]; // -> undefined
+```

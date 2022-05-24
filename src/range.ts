@@ -40,15 +40,11 @@ export function range(...args: number[]): Range {
         i++;
         val = start + i * step;
       }
-
-      // for (let val = start; step > 0 ? val < end : val > end; val += step) {
-      //   yield val;
-      // }
     },
   };
 
-  const _xmin = Math.min(start, end);
-  const _xmax = Math.max(start, end);
+  const _rangeMin = Math.min(start, end);
+  const _rangeMax = Math.max(start, end);
 
   return new Proxy(target, {
     /**
@@ -67,8 +63,8 @@ export function range(...args: number[]): Range {
 
       const y = Number(_y);
       // Handle boundaries
-      if (step > 0 && (y < _xmin || y >= _xmax)) return false;
-      if (step <= 0 && (y > _xmax || y <= _xmin)) return false;
+      if (step > 0 && (y < _rangeMin || y >= _rangeMax)) return false;
+      if (step <= 0 && (y > _rangeMax || y <= _rangeMin)) return false;
 
       const x = (y - start) / step;
       return isCloseEnough(y, start + Math.round(x) * step);
@@ -87,14 +83,17 @@ export function range(...args: number[]): Range {
         // Positive index
         if (x >= 0) {
           const y = start + x * step;
-          return y >= end ? undefined : y;
+          return y >= _rangeMax ? undefined : y;
         }
         // Negative index
         else {
           if (end === Infinity) return undefined;
 
-          // TODO: Handle this.
-          return undefined;
+          const numSteps = Math.floor((end - start) / step);
+          const modX = numSteps + x;
+          const y = start + modX * step;
+
+          return y < _rangeMin ? undefined : y;
         }
       } else {
         return Reflect.get(...args);
