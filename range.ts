@@ -18,7 +18,7 @@ export function range(...args: number[]): Res {
 
   const target = {
     *[Symbol.iterator]() {
-      for (let val = start; val < end; val += step) {
+      for (let val = start; step > 0 ? val < end : val > end; val += step) {
         yield val;
       }
     },
