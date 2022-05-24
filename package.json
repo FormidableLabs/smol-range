@@ -5,10 +5,12 @@
   "license": "MIT",
   "scripts": {
     "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "build": "tsup"
   },
   "devDependencies": {
     "prettier": "^2.6.2",
+    "tsup": "^5.12.8",
     "typescript": "^4.6.4",
     "vitest": "^0.12.9"
   }
