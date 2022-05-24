@@ -39,7 +39,7 @@ describe("range", () => {
     expect([...range(-3, -11, -3)]).toEqual([-3, -6, -9]);
   });
 
-  test.only("handles 'in' keyword for single-arg", () => {
+  test("handles 'in' keyword for single-arg", () => {
     const r = range(3);
     expect(-2 in r).toBe(false);
     expect(-1 in r).toBe(false);
@@ -76,5 +76,14 @@ describe("range", () => {
     expect(5 in r).toBe(true);
     expect(6 in r).toBe(false);
     expect(9 in r).toBe(false);
+  });
+
+  test("handles 'in' keyword for float triple-arg", () => {
+    const r = range(2.2, Infinity, 1.5);
+
+    expect(2.2 in r).toBe(true);
+    expect(3 in r).toBe(false);
+    expect(3.7 in r).toBe(true);
+    expect(494.2 in r).toBe(true);
   });
 });

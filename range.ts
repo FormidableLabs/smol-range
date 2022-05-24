@@ -1,10 +1,15 @@
-type Res = any;
+type Range = {
+  start: number;
+  end: number;
+  step: number;
+  [Symbol.iterator](): Generator<number, void, unknown>;
+};
 
-export function range(end: number): Res;
-export function range(start: number, end: number): Res;
-export function range(start: number, end: number, step: number): Res;
+export function range(end: number): Range;
+export function range(start: number, end: number): Range;
+export function range(start: number, end: number, step: number): Range;
 
-export function range(...args: number[]): Res {
+export function range(...args: number[]): Range {
   // Parse out start/end/step to handle overload
   const [start, end, step] = (() => {
     if (args.length === 1) {
@@ -25,9 +30,19 @@ export function range(...args: number[]): Res {
      * Use generator for iterator method to handle iteration
      */
     *[Symbol.iterator]() {
-      for (let val = start; step > 0 ? val < end : val > end; val += step) {
+      let i = 0,
+        val = start;
+
+      while (step > 0 ? val < end : val > end) {
         yield val;
+
+        i++;
+        val = start + i * step;
       }
+
+      // for (let val = start; step > 0 ? val < end : val > end; val += step) {
+      //   yield val;
+      // }
     },
   };
 
@@ -35,6 +50,10 @@ export function range(...args: number[]): Res {
   const _xmax = Math.max(start, end);
 
   return new Proxy(target, {
+    /**
+     * "has" method to handle "in" keyword, like...
+     *   `3 in range(5)`
+     */
     has({ start, end, step }, _y): boolean {
       if (typeof _y === "symbol" || isNaN(Number(_y))) return false;
 
@@ -44,8 +63,14 @@ export function range(...args: number[]): Res {
       if (step <= 0 && (y > _xmax || y <= _xmin)) return false;
 
       const x = (y - start) / step;
-
-      return Math.abs(x - Math.round(x)) < Number.EPSILON;
+      return isCloseEnough(y, start + Math.round(x) * step);
     },
+
+    // get({ start, step, end }, _x) {
+    //   console.log("AHHH!", _x);
+    // },
   });
 }
+
+const isCloseEnough = (a: number, b: number) =>
+  Math.abs(a - b) < Number.EPSILON;
