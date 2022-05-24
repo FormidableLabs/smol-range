@@ -17,6 +17,13 @@ export function range(...args: number[]): Res {
   })();
 
   const target = {
+    start,
+    end,
+    step,
+
+    /**
+     * Use generator for iterator method to handle iteration
+     */
     *[Symbol.iterator]() {
       for (let val = start; step > 0 ? val < end : val > end; val += step) {
         yield val;
@@ -24,5 +31,21 @@ export function range(...args: number[]): Res {
     },
   };
 
-  return target;
+  const _xmin = Math.min(start, end);
+  const _xmax = Math.max(start, end);
+
+  return new Proxy(target, {
+    has({ start, end, step }, _y): boolean {
+      if (typeof _y === "symbol" || isNaN(Number(_y))) return false;
+
+      const y = Number(_y);
+      // Handle boundaries
+      if (step > 0 && (y < _xmin || y >= _xmax)) return false;
+      if (step <= 0 && (y > _xmax || y <= _xmin)) return false;
+
+      const x = (y - start) / step;
+
+      return Math.abs(x - Math.round(x)) < Number.EPSILON;
+    },
+  });
 }

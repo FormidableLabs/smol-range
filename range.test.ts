@@ -38,4 +38,43 @@ describe("range", () => {
     expect([...range(10, 2, -2)]).toEqual([10, 8, 6, 4]);
     expect([...range(-3, -11, -3)]).toEqual([-3, -6, -9]);
   });
+
+  test.only("handles 'in' keyword for single-arg", () => {
+    const r = range(3);
+    expect(-2 in r).toBe(false);
+    expect(-1 in r).toBe(false);
+    expect(0 in r).toBe(true);
+    expect(1 in r).toBe(true);
+    expect(2 in r).toBe(true);
+    expect(3 in r).toBe(false);
+    expect(4 in r).toBe(false);
+
+    expect(2.2 in r).toBe(false);
+    expect(2.01 in r).toBe(false);
+  });
+
+  test("handles 'in' keyword for double-arg", () => {
+    const r = range(-2, 3);
+    expect(-4 in r).toBe(false);
+    expect(-3 in r).toBe(false);
+    expect(-2 in r).toBe(true);
+    expect(-1 in r).toBe(true);
+    expect(0 in r).toBe(true);
+    expect(1 in r).toBe(true);
+    expect(2 in r).toBe(true);
+    expect(3 in r).toBe(false);
+    expect(4 in r).toBe(false);
+  });
+
+  test("handles 'in' keyword for triple-arg", () => {
+    const r = range(-3, 9, 4);
+
+    expect(-7 in r).toBe(false);
+    expect(-4 in r).toBe(false);
+    expect(-3 in r).toBe(true);
+    expect(1 in r).toBe(true);
+    expect(5 in r).toBe(true);
+    expect(6 in r).toBe(false);
+    expect(9 in r).toBe(false);
+  });
 });
