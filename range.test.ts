@@ -39,6 +39,15 @@ describe("range", () => {
     expect([...range(-3, -11, -3)]).toEqual([-3, -6, -9]);
   });
 
+  test("handles 'in' keyword for properties on the object", () => {
+    const r = range(3);
+
+    expect("start" in r).toBe(true);
+    expect("end" in r).toBe(true);
+    expect("step" in r).toBe(true);
+    expect("plop" in r).toBe(false);
+  });
+
   test("handles 'in' keyword for single-arg", () => {
     const r = range(3);
     expect(-2 in r).toBe(false);
@@ -92,9 +101,5 @@ describe("range", () => {
     expect(range(5)[2]).toEqual(2);
     expect(range(5)[5]).toBeUndefined();
     expect(range(5)[7]).toBeUndefined();
-  });
-
-  test("handles negative value lookup for single-arg", () => {
-    expect(range(5)[-1]).toEqual(4);
   });
 });

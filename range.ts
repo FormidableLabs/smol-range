@@ -55,7 +55,14 @@ export function range(...args: number[]): Range {
      * "has" method to handle "in" keyword, like...
      *   `3 in range(5)`
      */
-    has({ start, end, step }, _y): boolean {
+    has(...args): boolean {
+      // Use reflection to first check if target has property.
+      const res = Reflect.has(...args);
+      if (res) return res;
+
+      // Otherwise, pull what we need and do our custom check
+      const [{ start, step }, _y] = args;
+
       if (typeof _y === "symbol" || isNaN(Number(_y))) return false;
 
       const y = Number(_y);
