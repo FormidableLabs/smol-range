@@ -1,8 +1,21 @@
 {
   "name": "js-range",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": [
+      {
+        "import": "./dist/index.mjs",
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./dist/index.js"
+    ],
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "test:watch": "vitest",
     "test": "vitest run",
