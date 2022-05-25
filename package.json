@@ -19,9 +19,17 @@
   "scripts": {
     "test:watch": "vitest",
     "test": "vitest run",
-    "build": "tsup"
+    "build": "tsup",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "check:ci": "yarn run typecheck && yarn run lint && yarn run test"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
     "tsup": "^5.12.8",
     "typescript": "^4.6.4",
