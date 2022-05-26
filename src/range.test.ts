@@ -143,4 +143,11 @@ describe("range", () => {
 
     expect(range(1, Infinity, 5)[-1]).toBeUndefined();
   });
+
+  test("disables setters", () => {
+    expect(() => {
+      const r = range(5);
+      r.start = 3;
+    }).toThrow();
+  });
 });

@@ -106,6 +106,13 @@ export function range(...args: number[]): Range {
         return Reflect.get(...args);
       }
     },
+
+    /**
+     * Disable setting properties.
+     */
+    set() {
+      return false;
+    },
   });
 }
 
