@@ -138,7 +138,7 @@ where $n$ varies from a starting value of 0 to an ending value $N$ where:
 
 $$\text{start} + \text{step} \cdot N \lt \text{end}$$
 
-Now, if you've been working with JavaScript for long enough, you might smell a little bit of floating-point shenanigans lurking! This library does not try to mitigate floating-point errors, and therefore you might end up in some weird situations like the following:
+Now, if you've been working with JavaScript for long enough, you might smell a little bit of **floating-point shenanigans** lurking! This library does not try to mitigate floating-point errors, and therefore you might end up in some weird situations like the following:
 
 ```ts
 3.3 in range(0, 11, 1.1); // -> false, because 3 * 1.1 === 3.3000000000000003 in JS
