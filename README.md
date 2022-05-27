@@ -130,11 +130,11 @@ Again, the library uses **math** to determine these values, once again ensuring 
 
 ## Non-integer values
 
-Non-integer values are fair game for start, end, and step values! E.g., there's nothing stopping you from doing something like `range(1.2, 7.4, 1.7)`. However, the `range` function generates values via this basic formula:
+Non-integer values are fair game for start, end, and step values! E.g., there's nothing stopping you from doing something like `range(1.2, 7.4, 1.7)`. However, the `range` function generates values $y$ via this basic formula:
 
 $$y = \text{start} + \text{step} \cdot n$$
 
-where $n$ varies from a starting value of 0 to an ending value $N$ where:
+where $n$ varies from a starting value of $0$ to an ending value $N$ where:
 
 $$\text{start} + \text{step} \cdot N \lt \text{end}$$
 
