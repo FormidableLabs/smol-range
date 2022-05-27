@@ -1,5 +1,5 @@
 {
-  "name": "js-range",
+  "name": "tiny-range",
   "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
