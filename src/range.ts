@@ -17,16 +17,14 @@ export function range(start: number, end: number, step: number): Range;
  * Range function implementation
  */
 export function range(...args: number[]): Range {
+  if (args.length === 0) {
+    throw new Error("range requires at least one argument");
+  }
+
   // Parse out start/end/step to handle overload
-  const [start, end, step] = (() => {
-    if (args.length === 1) {
-      return [0, args[0], 1];
-    }
-    if (args.length === 2) {
-      return [args[0], args[1], 1];
-    }
-    return args.slice(0, 3);
-  })();
+  const start = args.length > 1 ? args[0] : 0;
+  const end = args.length === 1 ? args[0] : args[1] ?? 0;
+  const step = args[2] ?? 1;
 
   // Create a "target" object (that we'll use as proxy target)
   const target = {
