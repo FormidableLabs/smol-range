@@ -1,9 +1,11 @@
 {
   "name": "smol-range",
   "author": "Formidable",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Small range utility function, like Python's but with some sugar on top.",
-  "keywords": ["range"],
+  "keywords": [
+    "range"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/formidablelabs/smol-range.git"
