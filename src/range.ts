@@ -23,8 +23,8 @@ export function range(...args: number[]): Range {
 
   // Parse out start/end/step to handle overload
   const start = args.length > 1 ? args[0] : 0;
-  const end = args.length === 1 ? args[0] : args[1] || 0;
-  const step = args[2] || 1;
+  const end = args.length === 1 ? args[0] : args[1] ?? 0;
+  const step = args[2] ?? 1;
 
   // Create a "target" object (that we'll use as proxy target)
   const target = {
