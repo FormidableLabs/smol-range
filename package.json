@@ -1,6 +1,14 @@
 {
   "name": "smol-range",
-  "version": "0.0.1",
+  "author": "Formidable",
+  "version": "0.0.0",
+  "description": "Small range utility function, like Python's but with some sugar on top.",
+  "keywords": ["range"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/formidablelabs/smol-range.git"
+  },
+  "homepage": "https://github.com/FormidableLabs/smol-range",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -34,5 +42,8 @@
     "tsup": "^5.12.8",
     "typescript": "^4.6.4",
     "vitest": "^0.12.9"
+  },
+  "engines": {
+    "node": ">= 14"
   }
 }
