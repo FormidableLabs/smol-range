@@ -1,6 +1,6 @@
 {
-  "name": "tiny-range",
-  "version": "1.0.0",
+  "name": "smol-range",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

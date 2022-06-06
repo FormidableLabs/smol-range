@@ -1,6 +1,6 @@
-# Tiny Range
+# smol-range
 
-`tiny-range` contains a `range` utility function that aims to replicate Python's `range` function. This `range` function has a few interesting properties:
+`smol-range` contains a `range` utility function that aims to replicate Python's `range` function. This `range` function has a few interesting properties:
 
 - Uses iterators (_not_ arrays) for iteration, so no unnecessary memory usage.
 - Uses `Proxy` to add some custom behavior, such as handling the `in` keyword (to test if a number is "in" the range) and adding functionality to look up range values by step (e.g., `range(2, 5)[1] === 3`).
@@ -8,16 +8,17 @@
 
 ## Installation and Basic Example
 
-Install `tiny-range` via yarn or NPM:
+Install `smol-range` via yarn or NPM:
 
 ```shell
-TODO:
+npm install smol-range # NPM
+yarn add smol-range # Or Yarn
 ```
 
 Then, import the `range` function and go to town!
 
 ```ts
-import { range } from 'tiny-range';
+import { range } from 'smol-range';
 
 // Iterate over a range...
 for (const x of range(12)) {
@@ -31,7 +32,7 @@ const arr = Array.from(range(10, 20, 2)); // [10, 12, 14, 16, 18]
 
 ## API
 
-`range` is the sole function exported from `tiny-range`, but contains a few different signatures:
+`range` is the sole function exported from `smol-range`, but contains a few different signatures:
 
 ```ts
 export function range(end: number): Range;
