@@ -33,7 +33,7 @@
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "check:ci": "yarn run typecheck && yarn run lint && yarn run test",
-    "prepare": "yarn check:ci && yarn build"
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.26.0",
