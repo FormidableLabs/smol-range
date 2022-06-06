@@ -2,6 +2,13 @@ import { describe, expect, test } from "vitest";
 import { range } from "./range";
 
 describe("range", () => {
+  test("0 arguments: throw", () => {
+    expect(() => {
+      // @ts-expect-error Range requires at least one argument
+      range();
+    }).toThrow("range requires at least one argument");
+  });
+
   test("single positive integer argument: iterates from 0 to arg, step of 1", () => {
     expect([...range(3)]).toEqual([0, 1, 2]);
   });

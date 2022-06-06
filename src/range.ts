@@ -19,6 +19,9 @@ export function range(start: number, end: number, step: number): Range;
 export function range(...args: number[]): Range {
   // Parse out start/end/step to handle overload
   const [start, end, step] = (() => {
+    if (args.length === 0) {
+      throw new Error("range requires at least one argument");
+    }
     if (args.length === 1) {
       return [0, args[0], 1];
     }
