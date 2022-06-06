@@ -18,18 +18,19 @@ export function range(start: number, end: number, step: number): Range;
  */
 export function range(...args: number[]): Range {
   // Parse out start/end/step to handle overload
-  const [start, end, step] = (() => {
-    if (args.length === 0) {
-      throw new Error("range requires at least one argument");
-    }
-    if (args.length === 1) {
-      return [0, args[0], 1];
-    }
-    if (args.length === 2) {
-      return [args[0], args[1], 1];
-    }
-    return args.slice(0, 3);
-  })();
+  let start = 0,
+    end = 0,
+    step = 1;
+
+  if (args.length === 0) {
+    throw new Error("range requires at least one argument");
+  } else if (args.length === 1) {
+    end = args[0];
+  } else if (args.length === 2) {
+    [start, end] = args.slice(0, 2);
+  } else {
+    [start, end, step] = args.slice(0, 3);
+  }
 
   // Create a "target" object (that we'll use as proxy target)
   const target = {
