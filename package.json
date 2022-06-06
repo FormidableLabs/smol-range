@@ -1,7 +1,7 @@
 {
   "name": "smol-range",
   "author": "Formidable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Small range utility function, like Python's but with some sugar on top.",
   "keywords": [
     "range"
