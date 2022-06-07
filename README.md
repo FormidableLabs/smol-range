@@ -30,6 +30,8 @@ const arr = Array.from(range(10, 20, 2)); // [10, 12, 14, 16, 18]
 [...range(10, 20, 2)]; // [10, 12, 14, 16, 18]
 ```
 
+**NOTE**: if used in a TypeScript project, this package requires "down-level iteration" to be enabled by setting `"downlevelIteration": true` in your `tsconfig.json`.
+
 ## API
 
 `range` is the sole function exported from `smol-range`, but contains a few different signatures:
