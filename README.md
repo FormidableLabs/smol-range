@@ -5,6 +5,7 @@
 - Uses iterators (_not_ arrays) for iteration, so no unnecessary memory usage.
 - Uses `Proxy` to add some custom behavior, such as handling the `in` keyword (to test if a number is "in" the range) and adding functionality to look up range values by step (e.g., `range(2, 5)[1] === 3`).
 - Supports negative steps and non-integer start/end/step values.
+- Added `.forEach` method like `Array.prototype.forEach` for easier iteration.
 
 ## Installation and Basic Example
 
@@ -24,6 +25,9 @@ import { range } from 'smol-range';
 for (const x of range(12)) {
   // Do something with x
 }
+
+// Or using .forEach
+range(12).forEach(x => { /* ... */ });
 
 // Or maybe even generate an array from a range...
 const arr = Array.from(range(10, 20, 2)); // [10, 12, 14, 16, 18]
@@ -130,6 +134,29 @@ myRange[-5]; // -> undefined
 ```
 
 Again, the library uses **math** to determine these values, once again ensuring `O(1)` efficiency. 
+
+### Custom `.forEach` method
+
+A generated Range has a `.forEach` method that allows you to easily iterate through a range, similar to `Array.prototype.forEach`.
+
+```ts
+type Range = {
+  // ...
+  forEach: (fn: (x: number, i: number) => void) => void;
+}
+```
+
+You pass in a callback that can (optionally) accept a value (current iteration value from the range) and an iteration count (what step in the iteration currently on). Here's an example:
+
+```ts
+range(2, 6).forEach(x => {
+  // x: 2, 3, 4, 6
+});
+
+range(2, 6).forEach((x, i) => {
+  console.log(`${i}th call, current value is ${x}`);
+});
+```
 
 ## Non-integer values
 

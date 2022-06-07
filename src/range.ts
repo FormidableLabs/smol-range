@@ -4,6 +4,7 @@ type Range = {
   step: number;
   [Symbol.iterator](): Generator<number, void, unknown>;
   [i: number]: number | undefined;
+  forEach: (fn: (x: number, i: number) => void) => void;
 };
 
 /*
@@ -27,7 +28,7 @@ export function range(...args: number[]): Range {
   const step = args[2] ?? 1;
 
   // Create a "target" object (that we'll use as proxy target)
-  const target = {
+  const target: Range = {
     start,
     end,
     step,
@@ -44,6 +45,24 @@ export function range(...args: number[]): Range {
 
         i++;
         val = start + i * step;
+      }
+    },
+
+    /**
+     * forEach method, similar to Array.prototype.forEach
+     */
+    forEach(fn: (x: number, i: number) => void) {
+      // If infinite start/end, throw error otherwise we'll end in infinite loop
+      if (!(Number.isFinite(start) && Number.isFinite(end))) {
+        throw new Error(
+          "Cannot call .forEach on range with infinite start/end"
+        );
+      }
+
+      let i = 0;
+      for (const x of this) {
+        fn(x, i);
+        i++;
       }
     },
   };

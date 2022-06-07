@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { range } from "./range";
 
 describe("range", () => {
@@ -155,6 +155,51 @@ describe("range", () => {
     expect(() => {
       const r = range(5);
       r.start = 3;
+    }).toThrow();
+  });
+
+  test(".forEach is called n times", () => {
+    const f = vi.fn();
+    range(5).forEach(f);
+
+    expect(f).toHaveBeenCalledTimes(5);
+    expect(f).toHaveBeenCalledWith(0, 0);
+    expect(f).toHaveBeenCalledWith(4, 4);
+    expect(f).not.toHaveBeenCalledWith(5);
+  });
+
+  test(".forEach is called with current range value, and iteration step", () => {
+    const f = vi.fn();
+    range(2, 20, 2).forEach(f);
+
+    expect(f).toHaveBeenCalledTimes(9);
+    expect(f).toHaveBeenCalledWith(2, 0);
+    expect(f).toHaveBeenCalledWith(4, 1);
+    expect(f).toHaveBeenCalledWith(18, 8);
+
+    const g = vi.fn();
+    range(30, 0, -3).forEach(g);
+
+    expect(g).toHaveBeenCalledWith(30, 0);
+    expect(g).toHaveBeenCalledWith(27, 1);
+    expect(g).toHaveBeenCalledWith(3, 9);
+  });
+
+  test(".forEach throws on infinite start/end", () => {
+    expect(() => {
+      range(Infinity).forEach(() => null);
+    }).toThrow();
+
+    expect(() => {
+      range(0, Infinity).forEach(() => null);
+    }).toThrow();
+
+    expect(() => {
+      range(0, Infinity, 3).forEach(() => null);
+    }).toThrow();
+
+    expect(() => {
+      range(-Infinity, 0, -3).forEach(() => null);
     }).toThrow();
   });
 });
