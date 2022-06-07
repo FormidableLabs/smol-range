@@ -52,6 +52,13 @@ export function range(...args: number[]): Range {
      * forEach method, similar to Array.prototype.forEach
      */
     forEach(fn: (x: number, i: number) => void) {
+      // If infinite start/end, throw error otherwise we'll end in infinite loop
+      if (!(Number.isFinite(start) && Number.isFinite(end))) {
+        throw new Error(
+          "Cannot call .forEach on range with infinite start/end"
+        );
+      }
+
       let i = 0;
       for (const x of this) {
         fn(x, i);

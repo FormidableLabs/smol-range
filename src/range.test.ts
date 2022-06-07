@@ -184,4 +184,22 @@ describe("range", () => {
     expect(g).toHaveBeenCalledWith(27, 1);
     expect(g).toHaveBeenCalledWith(3, 9);
   });
+
+  test(".forEach throws on infinite start/end", () => {
+    expect(() => {
+      range(Infinity).forEach(() => null);
+    }).toThrow();
+
+    expect(() => {
+      range(0, Infinity).forEach(() => null);
+    }).toThrow();
+
+    expect(() => {
+      range(0, Infinity, 3).forEach(() => null);
+    }).toThrow();
+
+    expect(() => {
+      range(-Infinity, 0, -3).forEach(() => null);
+    }).toThrow();
+  });
 });
