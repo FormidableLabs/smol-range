@@ -4,7 +4,7 @@ type Range = {
   step: number;
   [Symbol.iterator](): Generator<number, void, unknown>;
   [i: number]: number | undefined;
-  forEach: (fn: (x: number) => void) => void;
+  forEach: (fn: (x: number, i: number) => void) => void;
 };
 
 /*

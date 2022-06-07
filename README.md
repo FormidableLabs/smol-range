@@ -135,6 +135,29 @@ myRange[-5]; // -> undefined
 
 Again, the library uses **math** to determine these values, once again ensuring `O(1)` efficiency. 
 
+### Custom `.forEach` method
+
+A generated Range has a `.forEach` method that allows you to easily iterate through a range, similar to `Array.prototype.forEach`.
+
+```ts
+type Range = {
+	// ...
+	forEach: (fn: (x: number, i: number) => void) => void;
+}
+```
+
+You pass in a callback that can (optionally) accept a value (current iteration value from the range) and an iteration count (what step in the iteration currently on). Here's an example:
+
+```ts
+range(2, 6).forEach(x => {
+	// x: 2, 3, 4, 6
+});
+
+range(2, 6).forEach((x, i) => {
+	console.log(`${i}th call, current value is ${x}`);
+});
+```
+
 ## Non-integer values
 
 Non-integer values are fair game for start, end, and step values! E.g., there's nothing stopping you from doing something like `range(1.2, 7.4, 1.7)`. However, the `range` function generates values $y$ via this basic formula:
