@@ -141,8 +141,8 @@ A generated Range has a `.forEach` method that allows you to easily iterate thro
 
 ```ts
 type Range = {
-	// ...
-	forEach: (fn: (x: number, i: number) => void) => void;
+  // ...
+  forEach: (fn: (x: number, i: number) => void) => void;
 }
 ```
 
@@ -150,11 +150,11 @@ You pass in a callback that can (optionally) accept a value (current iteration v
 
 ```ts
 range(2, 6).forEach(x => {
-	// x: 2, 3, 4, 6
+  // x: 2, 3, 4, 6
 });
 
 range(2, 6).forEach((x, i) => {
-	console.log(`${i}th call, current value is ${x}`);
+  console.log(`${i}th call, current value is ${x}`);
 });
 ```
 
