@@ -1,4 +1,4 @@
-# smol-range
+[![smol-range – powered by Next.js + Sanity CMS + Fastly — Formidable, We build the modern web](https://raw.githubusercontent.com/FormidableLabs/smol-range/main/smol-range-Hero.png)](https://formidable.com/open-source/)
 
 `smol-range` contains a `range` utility function that aims to replicate Python's `range` function. This `range` function has a few interesting properties:
 
